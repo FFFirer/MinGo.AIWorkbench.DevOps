@@ -24,7 +24,7 @@ jobs:
         env:
           MAIN_REPO_TOKEN: ${{ secrets.MAIN_REPO_TOKEN }}
         run: |
-          git clone --depth 1 --branch ${{ inputs.tag }} --recurse-submodules \
+          git clone --depth 1 --branch ${{ inputs.tag }} \
             https://oauth2:${MAIN_REPO_TOKEN}@gitea.private.fffirer.top:9081/workbench/MinGo.AIWorkbench.git .
 
       - name: Log in to GHCR
