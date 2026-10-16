@@ -1,0 +1,3 @@
+[submodule "deploy"]
+	path = deploy
+	url = https://gitea.private.fffirer.top:9081/debian13/aiworkbench-deploy.git
