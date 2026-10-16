@@ -22,11 +22,10 @@ jobs:
     steps:
       - name: Checkout main repo from Gitea
         env:
-          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+          MAIN_REPO_TOKEN: ${{ secrets.MAIN_REPO_TOKEN }}
         run: |
-          # 从 Gitea 克隆主仓库（使用 tag 作为 ref）
           git clone --depth 1 --branch ${{ inputs.tag }} --recurse-submodules \
-            https://oauth2:${GITEA_TOKEN}@gitea.private.fffirer.top:9081/workbench/MinGo.AIWorkbench.git .
+            https://oauth2:${MAIN_REPO_TOKEN}@gitea.private.fffirer.top:9081/workbench/MinGo.AIWorkbench.git .
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
