@@ -20,15 +20,13 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout main repo
-        uses: actions/checkout@v4
-        with:
-          repository: FFFirer/MinGo.AIWorkbench
-          ref: ${{ inputs.tag }}
-          submodules: recursive
-          # 跨仓库 checkout 需要 PAT（fine-grained token 含 Contents: Read 权限）
-          # 在 DevOps 仓库 Settings > Secrets 中配置 MAIN_REPO_TOKEN
-          token: ${{ secrets.MAIN_REPO_TOKEN }}
+      - name: Checkout main repo from Gitea
+        env:
+          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+        run: |
+          # 从 Gitea 克隆主仓库（使用 tag 作为 ref）
+          git clone --depth 1 --branch ${{ inputs.tag }} --recurse-submodules \
+            https://oauth2:${GITEA_TOKEN}@gitea.private.fffirer.top:9081/workbench/MinGo.AIWorkbench.git .
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
